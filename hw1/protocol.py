@@ -154,7 +154,7 @@ class MyTCPProtocol(UDPBasedProtocol):
 
     def handle_empty_packet(self, packet: Packet):
         self.log("Empty packet ack =", packet.ack, " split=", packet.split)
-        if packet.split == 5:
+        if packet.split == 3:
             self.send_missing_packets(packet.ack)
         else:
             self.delete_acknowledged_packets(packet.ack)
@@ -231,5 +231,5 @@ class MyTCPProtocol(UDPBasedProtocol):
     def send_acknowledgement(self, loss=False):
         self.log("Sending empty packet ack=", self.ack, "id=", self.id)
         packet = Packet(b'', self.id, self.ack)
-        packet.split = 5 if loss else 0
+        packet.split = 3 if loss else 0
         self.transmit_queue.append(packet)

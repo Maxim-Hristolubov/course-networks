@@ -125,7 +125,7 @@ class MyTCPProtocol(UDPBasedProtocol):
             self.transmit_queue.insert(0, packet)
             self.id += 1
 
-        return len(data) + 9
+        return len(data)
 
     def process_received_packet(self) -> Packet:
         data = self.recvfrom(32767 + 9)
